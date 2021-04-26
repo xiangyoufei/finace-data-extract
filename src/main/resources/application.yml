@@ -1,0 +1,35 @@
+# 应用服务 WEB 访问端口
+server:
+  port: 8080
+
+# 应用名称
+spring:
+  application:
+    name: finace-data-extract
+  datasource:
+    maxActive: 10
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://114.215.175.196:33306/finace_data?useUnicode=true&characterEncoding=UTF-8&connectTimeout=60000&socketTimeout=60000&autoReconnect=true&autoReconnectForPools=true&failOverReadOnly=false
+    username: root
+    password: Aliyun_lysss_0
+  jpa:
+    database: MYSQL
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+
+schedule:
+  metal:
+    #    url: http://hqhistory.dyhjw.com
+    url: http://web.juhe.cn:8080/finance/gold/shgold
+    types:
+      - XAU
+      - XAG
+    interval: "0 0 0/1 * * ?"
+
+  fund:
+    uri:  "https://push2.eastmoney.com/api/qt/ulist.np/get"
+    fields:  "fields=f1,f2,f3,f4,f5,f6,f10,f11,f12,f13,f14,f15,f16,f17,f18"
+    url: ${schedule.fund.uri}"?"${schedule.fund.fields}"&secids={secids}&ut=6d2ffaa6a585d612eda28417681d58fb&_={tm}"
+    cron: "0 0/10 9-15 * * ?"
