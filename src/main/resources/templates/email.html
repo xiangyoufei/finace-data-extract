@@ -9,7 +9,7 @@
 </head>
 <body>
 <div>
-    <span th:text="${title}"></span>
+    <!--<span th:text="${title}"></span>-->
 </div>
 <table>
     <tr>
@@ -18,15 +18,15 @@
         <td>指数值</td>
         <td>开盘</td>
         <td>涨幅</td>
-        <td>日期</td>
+       <!-- <td>日期</td>-->
     </tr>
     <tr th:each="data,iterStat : ${datas}">
         <th th:text="${iterStat.index}"></th>
         <td th:text="${data.name}"></td>
         <td th:text="${data.close}"></td>
         <td th:text="${data.open}"></td>
-        <th th:text="${data.rate}"></th>
-        <th th:text="${data.data}"></th>
+        <th bgcolor="#FF0000"  th:text="${data.rate}"></th>
+       <!-- <th th:text="${data.data}"></th>-->
     </tr>
 
 </table>

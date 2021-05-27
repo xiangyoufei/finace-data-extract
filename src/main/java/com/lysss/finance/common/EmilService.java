@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -23,6 +24,8 @@ import javax.annotation.Resource;
 import javax.mail.internet.MimeMessage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -98,11 +101,10 @@ public class EmilService {
         try {
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
-            helper.setSubject("今日财经数据");
+            helper.setSubject("今日财经数据，日期:"+ LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
             helper.setTo(receive);
             helper.setFrom(sender);
-            //使用模板thymeleaf
-            //定义模板数据
+            //使用模板thymeleaf 定义模板数据
             Context context = new Context();
             context.setVariable("title", "今日财经数据");
             context.setVariable("datas", notifyEntities);
@@ -111,6 +113,7 @@ public class EmilService {
             helper.setText(emailContent, true);
 //            发送邮件
             mailSender.send(mimeMessage);
+            log.info("邮件发送成功");
         } catch (Exception e) {
             log.error("模板邮件发送失败->message:{}", e.getMessage());
             throw new RuntimeException("邮件发送失败");
