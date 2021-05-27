@@ -1,0 +1,35 @@
+<!DOCTYPEhtml>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div>
+    <span th:text="${title}"></span>
+</div>
+<table>
+    <tr>
+        <td>编号</td>
+        <td>名称</td>
+        <td>指数值</td>
+        <td>开盘</td>
+        <td>涨幅</td>
+        <td>日期</td>
+    </tr>
+    <tr th:each="data,iterStat : ${datas}">
+        <th th:text="${iterStat.index}"></th>
+        <td th:text="${data.name}"></td>
+        <td th:text="${data.close}"></td>
+        <td th:text="${data.open}"></td>
+        <th th:text="${data.rate}"></th>
+        <th th:text="${data.data}"></th>
+    </tr>
+
+</table>
+<div style="color:#ffd453"> 希望在未来的日子里，携手共进！</div>
+</body>
+</html>

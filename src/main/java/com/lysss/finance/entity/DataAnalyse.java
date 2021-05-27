@@ -1,21 +1,19 @@
 package com.lysss.finance.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.lysss.finance.common.AnalyseType;
 import com.sun.org.glassfish.gmbal.DescriptorFields;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.stream.Stream;
 
+@Table(name = "finance_data_analyse")
 @Entity
 @Data
-@Table(name = "finance_data")
-public class FinanceData {
-
+public class DataAnalyse {
     @Id()
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -66,23 +64,7 @@ public class FinanceData {
     @DescriptorFields("小数点位数")
     @JSONField(name = "f1")
     private int precision;
-
-    public void dealPrecision() {
-        final Field[] declaredFields = FinanceData.class.getDeclaredFields();
-        if (precision == 0) {
-            return;
-        }
-        Stream.of(declaredFields)
-                .filter(item -> item.getType() == double.class)
-                .forEach(item -> {
-                    item.setAccessible(true);
-                    try {
-                        final double value = (double) item.get(this);
-//                        item.set(this, value.divide(double.valueOf(10 * precision)));
-                        item.set(this, value / (Math.pow(10, precision)));
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                    }
-                });
-    }
+    @DescriptorFields("数据分析类型")
+    @Enumerated(EnumType.STRING)
+    private AnalyseType type;
 }

@@ -9,7 +9,7 @@ spring:
   datasource:
     maxActive: 10
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://114.215.175.196:33306/finace_data?useUnicode=true&characterEncoding=UTF-8&connectTimeout=60000&socketTimeout=60000&autoReconnect=true&autoReconnectForPools=true&failOverReadOnly=false
+    url: jdbc:mysql://114.215.175.196:33306/finace_data?useUnicode=true&characterEncoding=UTF-8&connectTimeout=60000&socketTimeout=60000&autoReconnect=true&autoReconnectForPools=true&failOverReadOnly=false&&serverTimezone=GMT%2b8
     username: root
     password: Aliyun_lysss_0
   jpa:
@@ -18,6 +18,33 @@ spring:
     hibernate:
       ddl-auto: validate
     database-platform: org.hibernate.dialect.MySQL5Dialect
+  flyway:
+    clean-disabled: true
+    enabled: true
+    out-of-order: false
+    baseline-on-migrate: true
+    baseline-version: 0
+  mail:
+    properties:
+      "[mail.smtp.connectiontimeout]": 5000
+      "[mail.smtp.timeout]": 3000
+      "[mail.smtp.writetimeout]": 5000
+      "[mail.smtp.socketFactory.port]": 465
+      "[mail.smtp.socketFactory.fallback]": false
+      "[mail.smtp.socketFactory.class]": javax.net.ssl.SSLSocketFactory
+    host: smtp.qq.com
+    username: liuyang.sx@qq.com
+    password: ubirhgowotnnbedd
+    sender: liuyang.sx@qq.com
+    receiver: 1042133944@qq.com,18335124922@139.com
+  thymeleaf:
+    prefix: classpath:/templates/
+    mode: HTML
+    cache: false
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+
 
 schedule:
   metal:
@@ -33,3 +60,10 @@ schedule:
     fields:  "fields=f1,f2,f3,f4,f5,f6,f10,f11,f12,f13,f14,f15,f16,f17,f18"
     url: ${schedule.fund.uri}"?"${schedule.fund.fields}"&secids={secids}&ut=6d2ffaa6a585d612eda28417681d58fb&_={tm}"
     cron: "0 0/10 9-15 * * ?"
+  analyse:
+    cron:
+      daily: "0 30 15 * * ?"
+      week: "0 0 17 ? * 5 *"
+      month: "0 0 17 L * ?"
+  notify:
+    cron: "0 30 14 * * ?"

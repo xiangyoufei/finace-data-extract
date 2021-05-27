@@ -15,7 +15,7 @@ public class ExecutorConfig {
     @Bean
     public Executor executor1() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setThreadNamePrefix("test-schedule2-");
+        executor.setThreadNamePrefix("async-schedule2-");
         executor.setMaxPoolSize(20);
         executor.setCorePoolSize(15);
         executor.setQueueCapacity(0);

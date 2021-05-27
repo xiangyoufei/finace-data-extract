@@ -1,38 +1,51 @@
 package com.lysss.finance.schdule;
 
-import com.lysss.finance.dao.FinanceDataRepository;
-import com.lysss.finance.entity.FinanceData;
-import com.lysss.finance.service.CommonService;
+import com.lysss.finance.service.AnalyseService;
 import com.lysss.finance.service.DataSourceService;
+import com.lysss.finance.util.DataUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.scheduling.annotation.Schedules;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 @Service
+@Slf4j
 public class DataExtractSchedule {
 
     @Value("${schedule.fund.url}")
     private String fundUrl;
 
     @Resource
-    private FinanceDataRepository financeDataRepository;
-
-    @Resource
     private DataSourceService dataSourceService;
 
+    @Resource
+    private AnalyseService analyseService;
 
-    @Schedules({
-//            @Scheduled(cron = "${schedule.fund.cron}"),
-            @Scheduled(cron = "${schedule.fund.cron}")
-    })
+    /**
+     * 获取金融指数并且入库
+     */
+    @Scheduled(cron = "${schedule.fund.cron}")
     public void pullDataAndInsert() {
-        if (CommonService.isTradingDay(true)) {
-            final List<FinanceData> financeData = dataSourceService.pullFundData();
-            financeDataRepository.saveAll(financeData);
+        if (DataUtil.isTradingDay(true)) {
+            dataSourceService.pullAndSaveFundData();
+        }
+    }
+
+    @Scheduled(cron = "${schedule.analyse.cron.daily}")
+    public void analyseDaily() {
+        log.info("执行每日分析任务");
+        if (DataUtil.isTradingDay(true)) {
+            analyseService.analyseByDay();
+        }
+    }
+
+    @Scheduled(cron = "${schedule.notify.cron}")
+    public void notifyEveryDayBeforeClose() {
+        log.info("执行每日数据提醒的任务");
+        if (DataUtil.isTradingDay(true)) {
+            dataSourceService.notifyEveryDayBeforeClose();
         }
     }
 
