@@ -18,4 +18,6 @@ public class FinanceIndicator {
     private String code;
 
     private String codePrefix;
+    private boolean valid;
+    private String system;
 }
