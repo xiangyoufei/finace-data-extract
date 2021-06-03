@@ -26,11 +26,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
-@Service
-public class DataSourceServiceImpl implements DataSourceService {
+@Service("fundData")
+public class FundDataServiceImpl implements DataSourceService {
 
 
-    @Value("${schedule.fund.url}")
+    @Value("${resources.fund.url}")
     private String fundUrl;
 
     @Resource

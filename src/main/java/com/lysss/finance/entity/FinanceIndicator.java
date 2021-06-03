@@ -18,6 +18,9 @@ public class FinanceIndicator {
     private String code;
 
     private String codePrefix;
+
+    @Column(nullable = false, columnDefinition = "TINYINT", length = 1)
     private boolean valid;
+
     private String system;
 }

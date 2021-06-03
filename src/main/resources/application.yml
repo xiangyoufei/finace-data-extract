@@ -37,28 +37,28 @@ spring:
     password: ubirhgowotnnbedd
     sender: liuyang.sx@qq.com
     receiver: 1042133944@qq.com,18335124922@139.com
-  thymeleaf:
-    prefix: classpath:/templates/
-    mode: HTML
-    cache: false
-    encoding: UTF-8
-    servlet:
-      content-type: text/html
+#  thymeleaf:
+#    prefix: classpath:/templates/
+#    mode: HTML
+#    cache: false
+#    encoding: UTF-8
+#    servlet:
+#      content-type: text/html
+
+resources:
+  fund:
+    uri:  "https://push2.eastmoney.com/api/qt/ulist.np/get"
+    fields:  "fields=f1,f2,f3,f4,f5,f6,f10,f11,f12,f13,f14,f15,f16,f17,f18"
+    url: ${resources.fund.uri}"?"${resources.fund.fields}"&secids={secids}&ut=6d2ffaa6a585d612eda28417681d58fb&_={tm}"
+  metal:
+    url: https://mybank.icbc.com.cn/servlet/AsynGetDataServlet
+
 
 
 schedule:
   metal:
-    #    url: http://hqhistory.dyhjw.com
-    url: http://web.juhe.cn:8080/finance/gold/shgold
-    types:
-      - XAU
-      - XAG
-    interval: "0 0 0/1 * * ?"
-
+    cron: "0 0/30 0 ? * 1/6 *"
   fund:
-    uri:  "https://push2.eastmoney.com/api/qt/ulist.np/get"
-    fields:  "fields=f1,f2,f3,f4,f5,f6,f10,f11,f12,f13,f14,f15,f16,f17,f18"
-    url: ${schedule.fund.uri}"?"${schedule.fund.fields}"&secids={secids}&ut=6d2ffaa6a585d612eda28417681d58fb&_={tm}"
     cron: "0 0/10 9-15 * * ?"
   analyse:
     cron:

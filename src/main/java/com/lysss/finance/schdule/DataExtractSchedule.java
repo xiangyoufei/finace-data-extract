@@ -4,6 +4,7 @@ import com.lysss.finance.service.AnalyseService;
 import com.lysss.finance.service.DataSourceService;
 import com.lysss.finance.util.DataUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -14,11 +15,14 @@ import javax.annotation.Resource;
 @Slf4j
 public class DataExtractSchedule {
 
-    @Value("${schedule.fund.url}")
+    @Value("${resources.fund.url}")
     private String fundUrl;
 
-    @Resource
+    @Resource(name = "fundData")
     private DataSourceService dataSourceService;
+
+    @Resource(name = "metalData")
+    private DataSourceService metalDataService;
 
     @Resource
     private AnalyseService analyseService;
