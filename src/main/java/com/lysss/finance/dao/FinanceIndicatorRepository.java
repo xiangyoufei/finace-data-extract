@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface FinanceIndicatorRepository extends JpaRepository<FinanceIndicator, Integer> {
 
-    @Query(value = "SELECT concat(code_prefix,'.',code) as fullCode  FROM finance_indicator", nativeQuery = true)
-    List<String> getAllFullCode();
+    @Query(value = "SELECT concat(code_prefix,'.',code) as fullCode  FROM finance_indicator where valid =true and system=?1  }", nativeQuery = true)
+    List<String> getAllFullCode(String system);
 
 }

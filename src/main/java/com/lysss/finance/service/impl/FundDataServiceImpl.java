@@ -65,7 +65,7 @@ public class FundDataServiceImpl implements DataSourceService {
 
     @Override
     public List<FinanceData> pullFundData() {
-        final List<String> fullCode = financeIndicatorRepository.getAllFullCode();
+        final List<String> fullCode = financeIndicatorRepository.getAllFullCode("eastmoney");
         final String allCode = fullCode.stream().collect(Collectors.joining(","));
         String url = fundUrl.replace("{secids}", allCode);
         final LocalDateTime now = LocalDateTime.now();
