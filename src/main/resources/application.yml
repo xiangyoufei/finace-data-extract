@@ -9,9 +9,9 @@ spring:
   datasource:
     maxActive: 10
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://114.215.175.196:33306/finace_data?useUnicode=true&characterEncoding=UTF-8&connectTimeout=60000&socketTimeout=60000&autoReconnect=true&autoReconnectForPools=true&failOverReadOnly=false&&serverTimezone=GMT%2b8
+    url: jdbc:mysql://47.100.126.206:33306/finace_data?useUnicode=true&characterEncoding=UTF-8&connectTimeout=60000&socketTimeout=60000&autoReconnect=true&autoReconnectForPools=true&failOverReadOnly=false&&serverTimezone=GMT%2b8
     username: root
-    password: Aliyun_lysss_0
+    password: Lysss_0203
   jpa:
     database: MYSQL
     show-sql: true
@@ -57,7 +57,7 @@ resources:
 
 schedule:
   metal:
-    cron: "0 0/30 0 ? * 1/6 *"
+    cron: "0 0/30 0 ? * 1/6"
   fund:
     cron: "0 0/10 9-15 * * ?"
   analyse:
@@ -66,4 +66,4 @@ schedule:
       week: "0 0 17 ? * 5 *"
       month: "0 0 17 L * ?"
   notify:
-    cron: "0 30 14 * * ?"
+    cron: "0 40 14 * * ?"

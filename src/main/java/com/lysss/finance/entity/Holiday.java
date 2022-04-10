@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Data
 @Table
 @Entity
-public class Holiday  {
+public class Holiday {
 
     @Id
     private int id;
@@ -18,5 +18,7 @@ public class Holiday  {
     private String name;
 
     private LocalDate date;
+
+    private int year;
 
 }

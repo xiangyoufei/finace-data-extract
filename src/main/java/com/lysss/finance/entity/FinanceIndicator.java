@@ -22,5 +22,5 @@ public class FinanceIndicator {
     @Column(nullable = false, columnDefinition = "TINYINT", length = 1)
     private boolean valid;
 
-    private String system;
+    private String source;
 }

@@ -30,5 +30,13 @@ public class AnalyseServiceImpl implements AnalyseService {
         dataAnalyseRepository.saveAll(analyseData);
     }
 
+    @Override
+    public void analyseMetalData() {
+        final List<FinanceData> data = financeDataRepository.findALLIndicatorCloseValue();
+        final List<DataAnalyse> analyseData = JSONArray.parseArray(JSON.toJSONString(data), DataAnalyse.class);
+        analyseData.forEach(item -> item.setType(AnalyseType.DAILY));
+        dataAnalyseRepository.saveAll(analyseData);
+    }
+
 
 }

@@ -36,6 +36,15 @@ public class DataExtractSchedule {
             dataSourceService.pullAndSaveFundData();
         }
     }
+    /**
+     * 获取金融指数并且入库
+     */
+    @Scheduled(cron = "${schedule.metal.cron}")
+    public void pullMetalDataAndInsert() {
+        if (DataUtil.isTradingDay(true)) {
+            dataSourceService.pullAndSaveFundData();
+        }
+    }
 
     @Scheduled(cron = "${schedule.analyse.cron.daily}")
     public void analyseDaily() {
